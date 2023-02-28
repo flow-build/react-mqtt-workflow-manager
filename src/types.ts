@@ -1,3 +1,7 @@
 import { PropsWithChildren } from 'react';
 
-export interface WorkflowManagerProps extends PropsWithChildren {}
+import { IClientOptions } from 'mqtt';
+export interface WorkflowManagerProps extends PropsWithChildren {
+  brokerUrl: string;
+  options: IClientOptions;
+}

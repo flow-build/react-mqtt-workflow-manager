@@ -1,7 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+
+import { connect, MqttClient } from 'mqtt';
 
 import { WorkflowManagerProps } from './types';
 
-export const WorkflowManager: FC<WorkflowManagerProps> = ({ children }) => {
-  return <div>{children || `Hello WorkflowManager`}</div>;
+export const WorkflowManager: FC<WorkflowManagerProps> = ({
+  brokerUrl,
+  options,
+  children,
+}) => {
+  const [client, setClient] = useState<MqttClient | null>(null);
+
+  const init = useCallback(() => {
+    if (client === null) {
+      try {
+        const mqttInstance = connect(brokerUrl, options);
+
+        setClient(mqttInstance);
+      } catch (error) {
+        // TODO: Handle error with invariant
+      }
+    }
+  }, [brokerUrl, client, options]);
+
+  useEffect(() => {
+    init();
+  }, [init]);
+
+  return <div>{children ?? `Hello WorkflowManager`}</div>;
 };
