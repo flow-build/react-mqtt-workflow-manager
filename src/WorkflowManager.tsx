@@ -27,5 +27,5 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
     init();
   }, [init]);
 
-  return <div>{children ?? `Hello WorkflowManager`}</div>;
+  return <>{children}</>;
 };
