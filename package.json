@@ -1,12 +1,18 @@
 {
+  "name": "@flowbuild/react-mqtt-workflow-manager",
   "version": "0.1.0",
   "license": "MIT",
-  "main": "dist/index.js",
   "description": "A react wrapper manager for MQTT",
+  "repository": "https://github.com/flow-build/react-mqtt-workflow-manager",
+  "homepage": "https://github.com/flow-build/react-mqtt-workflow-manager/#readme",
+  "author": {
+    "name": "FlowBuild",
+    "url": "https://github.com/flow-build"
+  },
+  "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -25,7 +31,7 @@
   },
   "scripts": {
     "dev": "tsdx watch",
-    "build": "tsdx build",
+    "build": "rimraf dist/ && tsdx build",
     "test": "jest",
     "lint": "eslint --fix",
     "fmt": "prettier --write src/**/*.{ts,tsx}",
@@ -38,8 +44,6 @@
     "react": ">=16",
     "react-dom": ">=16"
   },
-  "name": "react-mqtt-workflow-manager",
-  "author": "wallace-sf",
   "module": "dist/react-mqtt-workflow-manager.esm.js",
   "size-limit": [
     {
@@ -78,6 +82,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
+    "rimraf": "^4.1.2",
     "size-limit": "^8.2.4",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
