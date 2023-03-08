@@ -1,4 +1,4 @@
-export const VALID_PATTERN =
+export const VALID_TOPIC_PATTERN =
   /^(([\\+#]{1}|[^\\+#]*)\/)?(([\\+#]{1}|[^\\+#]*)\/{1})*(([\\+#]{1}|[^\\+#]*))$/;
 
 export const ERROR_MESSAGES = {
@@ -13,3 +13,5 @@ export const ERROR_MESSAGES = {
   NO_STORE: 'No store found. Did you forget to set the store?',
   INVALID_JSON: 'The MQTT message is not a valid JSON.',
 };
+
+export const PROCESS_TOPIC_PATTERN = '/process/+processId/am/create';

@@ -93,8 +93,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "mqtt": "^4.3.7",
-    "mqtt-match": "^3.0.0",
+    "mqtt-pattern": "^2.0.0",
+    "precompiled-mqtt": "^4.3.14-beta",
     "react-redux": "^8.0.5",
     "tiny-warning": "^1.0.3"
   },

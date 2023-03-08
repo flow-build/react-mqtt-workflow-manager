@@ -1,6 +1,6 @@
 import { Store } from '@reduxjs/toolkit';
-import { MqttClient, IClientSubscribeOptions } from 'mqtt';
-import match from 'mqtt-match';
+import { matches, exec } from 'mqtt-pattern';
+import { MqttClient, IClientSubscribeOptions } from 'precompiled-mqtt';
 import invariant from 'tiny-warning';
 
 import { createWorkflowAction } from './ducks/utils';
@@ -10,6 +10,7 @@ import {
   ERROR_MESSAGES,
   isValidJSON,
   shouldSubscribeOrUnsubscribe,
+  PROCESS_TOPIC_PATTERN,
 } from './utils';
 
 class WorkflowManagerConfig implements WorkflowManagerConfigProps {
@@ -38,14 +39,16 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
       }
 
       const topics = [subscribeTopic].flat();
-      const isMatched = topics.some((subTopic) => match(subTopic, topic));
+      const isMatched = topics.some((subTopic) => matches(subTopic, topic));
 
       if (isMatched) {
         const store = WorkflowManagerConfig._store;
         const dispatch = store?.dispatch as Store['dispatch'];
         const payload = JSON.parse(message.toString());
+        const action = payload?.props?.action || '';
+        const result = payload?.props?.result || {};
 
-        dispatch(createWorkflowAction(payload.action, payload.result));
+        dispatch(createWorkflowAction(action, result));
       }
     };
   }
@@ -82,12 +85,10 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
   /**
    * @description Subscribe to a topic or topics.
    * @param {(string | string[])} topic
-   * @param {string} processId
    * @param {IClientSubscribeOptions} options
    */
   public subscribe(
     topic: string | string[],
-    processId: string,
     options: IClientSubscribeOptions = {} as IClientSubscribeOptions,
   ): void {
     const client = this.getMqttClient();
@@ -95,13 +96,19 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
 
     const shouldSubscribe = shouldSubscribeOrUnsubscribe(topic, store, client);
 
-    console.log('shouldSubscribe', shouldSubscribe);
-
     if (!shouldSubscribe) return;
 
     const dispatch = store?.dispatch as Store['dispatch'];
 
-    dispatch(addProcess(processId));
+    const topics = [topic].flat();
+
+    topics.forEach((subTopic) => {
+      const topicParams = exec(PROCESS_TOPIC_PATTERN, subTopic);
+      const processId = topicParams?.processId || '';
+
+      if (processId) dispatch(addProcess(processId));
+    });
+
     client?.subscribe(topic, options);
     client?.on('message', this._onMessageArrived(topic));
   }

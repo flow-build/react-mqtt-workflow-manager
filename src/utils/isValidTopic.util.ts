@@ -1,5 +1,5 @@
-import { VALID_PATTERN } from './constants';
+import { VALID_TOPIC_PATTERN } from './constants';
 
 export const isValidTopic = (topic: string): boolean => {
-  return VALID_PATTERN.test(topic);
+  return VALID_TOPIC_PATTERN.test(topic);
 };

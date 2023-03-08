@@ -1,7 +1,11 @@
 import { PropsWithChildren } from 'react';
 
 import { Store } from '@reduxjs/toolkit';
-import { IClientOptions, IClientSubscribeOptions, MqttClient } from 'mqtt';
+import {
+  IClientOptions,
+  IClientSubscribeOptions,
+  MqttClient,
+} from 'precompiled-mqtt';
 
 export interface WorkflowManagerProps extends PropsWithChildren {
   brokerUrl?: string;
@@ -11,11 +15,6 @@ export interface WorkflowManagerProps extends PropsWithChildren {
 export interface WorkflowManagerConfigProps {
   setStore(store: Store): void;
   getMqttClient(): MqttClient | null;
-  // eslint-disable-next-line prettier/prettier
-  subscribe(
-    topic: string | string[],
-    processId: string,
-    options: IClientSubscribeOptions,
-  ): void;
+  subscribe(topic: string | string[], options: IClientSubscribeOptions): void;
   unsubscribe(topic: string | string[]): void;
 }

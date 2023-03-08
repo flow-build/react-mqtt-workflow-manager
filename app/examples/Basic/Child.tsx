@@ -2,17 +2,15 @@ import * as React from 'react';
 
 import { useMqtt, useSubscribe } from '../../../dist';
 
-const processId = '7179b2f3-5236-4917-8164-f02fc43cfb07';
 const processTopic = `/process/7179b2f3-5236-4917-8164-f02fc43cfb07/am/create`;
-const actorTopic = `/actor/7179b2f3-5236-4917-8164-f02fc43cfb07/am/create`;
+const actorTopic = `/actor/ed3772f4-200a-41bf-907d-4e4581236daf/am/create`;
 
 export const Child: React.FC = () => {
   const { status, error } = useMqtt();
   const subscribe = useSubscribe();
 
   React.useEffect(() => {
-    if (status === 'connected')
-      subscribe([processTopic, actorTopic], processId);
+    if (status === 'connected') subscribe([processTopic, actorTopic]);
   }, [subscribe, status]);
 
   return (
