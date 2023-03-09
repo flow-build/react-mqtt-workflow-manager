@@ -117,7 +117,8 @@
     "import/resolver": {
       "typescript": {
         "typescript": true,
-        "mqtt": true
+        "mqtt": true,
+        "node": true
       }
     }
   }
