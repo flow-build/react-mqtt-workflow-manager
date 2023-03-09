@@ -103,8 +103,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
+    "mqtt": "^4.3.7",
     "mqtt-pattern": "^2.0.0",
-    "precompiled-mqtt": "^4.3.14-beta",
     "react-redux": "^8.0.5",
     "tiny-warning": "^1.0.3"
   },
@@ -118,7 +118,6 @@
     "import/resolver": {
       "typescript": {
         "typescript": true,
-        "mqtt": true,
         "node": true
       }
     }
