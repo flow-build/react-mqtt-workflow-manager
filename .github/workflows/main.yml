@@ -19,18 +19,22 @@ jobs:
           repository: ${{github.event.pull_request.head.repo.full_name}}
 
       - name: Use Node ${{ matrix.node }}
+        run: "echo ##[set-output name=ref;]$(git rev-parse --abbrev-ref HEAD)"
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           check-latest: true
 
       - name: Install deps and build (with cache)
+        run: "echo ##[set-output name=ref;]$(git rev-parse --abbrev-ref HEAD)"
         uses: bahmutov/npm-install@v1
 
       - name: Lint
+        run: "echo ##[set-output name=ref;]$(git rev-parse --abbrev-ref HEAD)"
         run: yarn lint
 
       - name: Test
+        run: "echo ##[set-output name=ref;]$(git rev-parse --abbrev-ref HEAD)"
         run: yarn test --ci --coverage --maxWorkers=2
 
       - name: Build
