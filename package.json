@@ -70,6 +70,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.4.0",
+    "@types/node": "^18.14.6",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
@@ -102,12 +103,10 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "events": "^3.3.0",
     "mqtt-pattern": "^2.0.0",
     "precompiled-mqtt": "^4.3.14-beta",
     "react-redux": "^8.0.5",
-    "tiny-warning": "^1.0.3",
-    "url": "^0.11.0"
+    "tiny-warning": "^1.0.3"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
