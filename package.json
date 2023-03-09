@@ -11,11 +11,20 @@
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "keywords": [
+    "react",
+    "mqtt",
+    "workflow",
+    "manager"
+  ],
   "files": [
     "dist"
   ],
   "engines": {
     "node": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "browserslist": {
     "production": [
@@ -108,7 +117,7 @@
     "import/resolver": {
       "typescript": {
         "typescript": true,
-        "node": true
+        "mqtt": true
       }
     }
   }
