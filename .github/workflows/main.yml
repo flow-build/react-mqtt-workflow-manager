@@ -7,22 +7,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['18']
+        node: ['18.x']
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-          with:
-          fetch-depth: 0
-          ref: ${{github.event.pull_request.head.ref}}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
 
       - name: Use Node ${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-          check-latest: true
 
       - name: Install deps and build (with cache)
         uses: bahmutov/npm-install@v1
@@ -31,7 +26,7 @@ jobs:
         run: yarn lint
 
       - name: Test
-        run: yarn test
+        run: yarn test --ci --coverage --maxWorkers=2
 
       - name: Build
         run: yarn build
