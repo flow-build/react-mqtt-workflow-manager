@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
-import { WorkflowManagerConfig } from '..';
+import { Instance } from '../WorkflowManagerConfig';
 
 /**
  * @description Subscribe to a topic or topics.
  */
 export const useSubscribe = () => {
-  return useMemo(() => WorkflowManagerConfig.subscribe, []);
+  return useMemo(() => Instance.subscribe, []);
 };

@@ -13,7 +13,7 @@ export const Basic: React.FC = () => {
       <WorkflowManager
         brokerUrl="ws://broker.mqttdashboard.com:8000/mqtt"
         options={{
-          clientId: 'clientId-gtLUH3aEl8',
+          clientId: `clientId-${Math.random().toString(36).substring(2, 9)}`,
           keepalive: 60,
         }}
       >

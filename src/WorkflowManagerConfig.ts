@@ -21,6 +21,7 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
   constructor() {
     this._setInstance(this);
     this.subscribe = this.subscribe.bind(this);
+    this.unsubscribe = this.unsubscribe.bind(this);
   }
 
   private _setInstance(instance: WorkflowManagerConfig): void {
@@ -126,9 +127,13 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
 
     client?.unsubscribe(topic);
     topics.forEach((subTopic) => {
-      dispatch(removeProcess(subTopic));
+      const topicParams = exec(PROCESS_TOPIC_PATTERN, subTopic);
+      const processId = topicParams?.processId || '';
+
+      if (processId) dispatch(removeProcess(processId));
     });
   }
 }
 
+export const Instance = WorkflowManagerConfig.getInstance();
 export default WorkflowManagerConfig;
