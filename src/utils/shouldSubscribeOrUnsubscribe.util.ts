@@ -1,5 +1,5 @@
 import { Store } from '@reduxjs/toolkit';
-import { MqttClient } from 'precompiled-mqtt';
+import { MqttClient } from 'mqtt';
 import invariant from 'tiny-warning';
 
 import { ERROR_MESSAGES } from './constants';

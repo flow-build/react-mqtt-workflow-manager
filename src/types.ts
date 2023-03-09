@@ -1,11 +1,7 @@
 import { PropsWithChildren } from 'react';
 
 import { Store } from '@reduxjs/toolkit';
-import {
-  IClientOptions,
-  IClientSubscribeOptions,
-  MqttClient,
-} from 'precompiled-mqtt';
+import { IClientOptions, IClientSubscribeOptions, MqttClient } from 'mqtt';
 
 type Topic = string | string[];
 
