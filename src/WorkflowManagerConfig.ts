@@ -5,7 +5,7 @@ import invariant from 'tiny-warning';
 
 import { createWorkflowAction } from './ducks/utils';
 import { addProcess, removeProcess } from './ducks/workflowManager.slice';
-import { WorkflowManagerConfigProps } from './types';
+import { WorkflowManagerConfigProps, IClientUnsubscribeOptions } from './types';
 import {
   ERROR_MESSAGES,
   isValidJSON,
@@ -114,7 +114,10 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
     client?.on('message', this._onMessageArrived(topic));
   }
 
-  public unsubscribe(topic: string | string[]): void {
+  public unsubscribe(
+    topic: string | string[],
+    options: IClientUnsubscribeOptions = {} as IClientUnsubscribeOptions,
+  ): void {
     const client = this.getMqttClient();
     const store = WorkflowManagerConfig._store;
 
@@ -125,7 +128,7 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
     const dispatch = store?.dispatch as Store['dispatch'];
     const topics = [topic].flat();
 
-    client?.unsubscribe(topic);
+    client?.unsubscribe(topic, options);
     topics.forEach((subTopic) => {
       const topicParams = exec(PROCESS_TOPIC_PATTERN, subTopic);
       const processId = topicParams?.processId || '';

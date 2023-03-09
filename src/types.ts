@@ -7,6 +7,12 @@ import {
   MqttClient,
 } from 'precompiled-mqtt';
 
+type Topic = string | string[];
+
+export type IClientUnsubscribeOptions = Parameters<
+  MqttClient['unsubscribe']
+>[1];
+
 export interface WorkflowManagerProps extends PropsWithChildren {
   brokerUrl?: string;
   options?: IClientOptions;
@@ -15,6 +21,6 @@ export interface WorkflowManagerProps extends PropsWithChildren {
 export interface WorkflowManagerConfigProps {
   setStore(store: Store): void;
   getMqttClient(): MqttClient | null;
-  subscribe(topic: string | string[], options: IClientSubscribeOptions): void;
-  unsubscribe(topic: string | string[]): void;
+  subscribe(topic: Topic, options: IClientSubscribeOptions): void;
+  unsubscribe(topic: Topic, options: IClientUnsubscribeOptions): void;
 }
