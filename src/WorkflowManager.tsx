@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { MqttClient, connect } from 'precompiled-mqtt';
+import { MqttClient, connect } from 'mqtt-browser';
 import invariant from 'tiny-warning';
 
 import { MqttProvider, IMqttContext } from './contexts';

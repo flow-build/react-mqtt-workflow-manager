@@ -5,7 +5,7 @@ import {
   IClientOptions,
   IClientSubscribeOptions,
   MqttClient,
-} from 'precompiled-mqtt';
+} from 'mqtt-browser';
 
 type Topic = string | string[];
 

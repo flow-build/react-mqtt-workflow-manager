@@ -6,7 +6,7 @@ import { WorkflowManager } from '../WorkflowManager';
 
 describe('WorkflowManager component', () => {
   beforeEach(() => {
-    const props = { brokerUrl: 'http://localhost:8080' };
+    const props = { brokerUrl: 'ws://broker.mqttdashboard.com:8000/mqtt' };
 
     render(<WorkflowManager {...props} />);
   });
