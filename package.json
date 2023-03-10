@@ -1,6 +1,6 @@
 {
   "name": "react-mqtt-workflow-manager",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "description": "A react wrapper manager for MQTT",
   "repository": "https://github.com/flow-build/react-mqtt-workflow-manager",
@@ -66,7 +66,6 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.21.0",
-    "@rollup/plugin-url": "^8.0.1",
     "@size-limit/esbuild-why": "^8.2.4",
     "@size-limit/preset-small-lib": "^8.2.4",
     "@testing-library/jest-dom": "^5.16.5",
@@ -95,7 +94,6 @@
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "rimraf": "^4.1.2",
-    "rollup-plugin-node-builtins": "^2.1.2",
     "semantic-release": "^20.1.1",
     "size-limit": "^8.2.4",
     "ts-jest": "^29.0.5",
@@ -106,8 +104,8 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "mqtt": "^4.3.7",
     "mqtt-pattern": "^2.0.0",
+    "precompiled-mqtt": "^4.3.14-beta",
     "react-redux": "^8.0.5",
     "tiny-warning": "^1.0.3"
   },
@@ -116,13 +114,5 @@
       "yarn lint",
       "yarn fmt"
     ]
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {
-        "typescript": true,
-        "node": true
-      }
-    }
   }
 }
