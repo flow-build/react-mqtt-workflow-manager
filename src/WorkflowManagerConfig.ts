@@ -1,6 +1,6 @@
 import { Store } from '@reduxjs/toolkit';
-import { MqttClient, IClientSubscribeOptions } from 'mqtt';
 import { matches, exec } from 'mqtt-pattern';
+import { MqttClient, IClientSubscribeOptions } from 'precompiled-mqtt';
 import invariant from 'tiny-warning';
 
 import { createWorkflowAction } from './ducks/utils';

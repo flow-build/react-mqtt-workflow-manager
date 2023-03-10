@@ -57,11 +57,11 @@
   "size-limit": [
     {
       "path": "dist/react-mqtt-workflow-manager.cjs.production.min.js",
-      "limit": "25 KB"
+      "limit": "100 kB"
     },
     {
       "path": "dist/react-mqtt-workflow-manager.esm.js",
-      "limit": "25 KB"
+      "limit": "100 kB"
     }
   ],
   "devDependencies": {

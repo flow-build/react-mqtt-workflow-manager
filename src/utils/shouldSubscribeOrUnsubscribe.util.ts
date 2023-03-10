@@ -1,8 +1,8 @@
 import { Store } from '@reduxjs/toolkit';
-import { MqttClient } from 'mqtt';
+import { MqttClient } from 'precompiled-mqtt';
 import invariant from 'tiny-warning';
 
-import { ERROR_MESSAGES } from './constants';
+import { ERROR_MESSAGES } from './constants.util';
 import { isValidTopic } from './isValidTopic.util';
 
 const hasStore = (store: Store | null) => {

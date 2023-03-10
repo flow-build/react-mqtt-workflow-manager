@@ -1,4 +1,4 @@
-import { MqttClient } from 'mqtt';
+import { MqttClient } from 'precompiled-mqtt';
 
 export interface IMqttContext {
   client: MqttClient | null;
