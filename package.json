@@ -1,6 +1,6 @@
 {
   "name": "react-mqtt-workflow-manager",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "description": "A react wrapper manager for MQTT",
   "repository": "https://github.com/flow-build/react-mqtt-workflow-manager",
