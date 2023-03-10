@@ -48,11 +48,11 @@
   "size-limit": [
     {
       "path": "dist/react-mqtt-workflow-manager.cjs.production.min.js",
-      "limit": "10 KB"
+      "limit": "100 KB"
     },
     {
       "path": "dist/react-mqtt-workflow-manager.esm.js",
-      "limit": "10 KB"
+      "limit": "100 KB"
     }
   ],
   "devDependencies": {
@@ -92,7 +92,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "mqtt": "^4.3.7"
+    "precompiled-mqtt": "^4.3.14-beta"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

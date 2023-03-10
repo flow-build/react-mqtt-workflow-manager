@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 
-import { connect, MqttClient } from 'mqtt';
+import { connect, MqttClient } from 'precompiled-mqtt';
 
 import { WorkflowManagerProps } from './types';
 
