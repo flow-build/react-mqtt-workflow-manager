@@ -10,7 +10,8 @@ export const ERROR_MESSAGES = {
   NOT_CONNECTED: 'MQTT client is not connected.',
   FAILED_TO_CONNECT:
     'Failed to connect to MQTT broker. Please, check your connection settings.',
-  NO_STORE: 'No store found. Did you forget to set the store?',
+  NO_STORE:
+    'No redux store found. Please, set a redux store with WorkflowManagerConfig.setStore method before using WorkflowManager.',
   INVALID_JSON: 'The MQTT message is not a valid JSON.',
 };
 
