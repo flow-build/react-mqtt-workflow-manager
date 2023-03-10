@@ -1,21 +1,30 @@
 {
   "name": "@flowbuild/react-mqtt-workflow-manager",
-  "version": "0.1.0",
+  "version": "0.1.7",
   "license": "MIT",
   "description": "A react wrapper manager for MQTT",
   "repository": "https://github.com/flow-build/react-mqtt-workflow-manager",
   "homepage": "https://github.com/flow-build/react-mqtt-workflow-manager/#readme",
   "author": {
-    "name": "FlowBuild",
-    "url": "https://github.com/flow-build"
+    "name": "Wallace Ferreira",
+    "url": "https://github.com/wallace-sf"
   },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "keywords": [
+    "react",
+    "mqtt",
+    "workflow",
+    "manager"
+  ],
   "files": [
     "dist"
   ],
   "engines": {
     "node": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "browserslist": {
     "production": [
@@ -41,26 +50,28 @@
     "analyze": "size-limit --why"
   },
   "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "module": "dist/react-mqtt-workflow-manager.esm.js",
   "size-limit": [
     {
       "path": "dist/react-mqtt-workflow-manager.cjs.production.min.js",
-      "limit": "100 KB"
+      "limit": "100 kB"
     },
     {
       "path": "dist/react-mqtt-workflow-manager.esm.js",
-      "limit": "100 KB"
+      "limit": "100 kB"
     }
   ],
   "devDependencies": {
     "@babel/core": "^7.21.0",
+    "@size-limit/esbuild-why": "^8.2.4",
     "@size-limit/preset-small-lib": "^8.2.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.4.0",
+    "@types/node": "^18.14.6",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
@@ -92,20 +103,16 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "precompiled-mqtt": "^4.3.14-beta"
+    "@reduxjs/toolkit": "^1.9.3",
+    "mqtt-browser": "^4.3.7",
+    "mqtt-pattern": "^2.0.0",
+    "react-redux": "^8.0.5",
+    "tiny-warning": "^1.0.3"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "yarn lint",
       "yarn fmt"
     ]
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {
-        "typescript": true,
-        "node": true
-      }
-    }
   }
 }

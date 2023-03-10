@@ -31,7 +31,16 @@
   "rules": {
     "prettier/prettier": "error",
     "linebreak-style": ["error", "unix"],
-    "max-len": ["error", { "code": 80, "ignoreUrls": true }],
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreStrings": true,
+        "ignoreComments": true,
+        "ignoreRegExpLiterals": true,
+        "ignorePattern": "^\\s*\\w+\\s*\\(.*\\).+;$"
+      }
+    ],
     "import-helpers/order-imports": [
       "error",
       {
