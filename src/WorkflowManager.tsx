@@ -23,6 +23,7 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
         const mqttInstance = connect(brokerUrl, options);
 
         mqttInstance.on('connect', () => {
+          if (status !== 'connected') setStatus('connected');
           setStatus('connected');
         });
 
@@ -31,15 +32,16 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
         });
 
         mqttInstance.on('offline', () => {
-          setStatus('offline');
+          if (status !== 'offline') setStatus('offline');
         });
 
         mqttInstance.on('error', () => {
-          setStatus('error');
+          if (status !== 'error') setStatus('error');
           invariant(false, ERROR_MESSAGES.ERROR_OCURRED);
         });
 
         mqttInstance.on('reconnect', () => {
+          if (status !== 'reconnecting') setStatus('reconnecting');
           setStatus('reconnecting');
         });
 
@@ -51,7 +53,7 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
         invariant(false, ERROR_MESSAGES.FAILED_TO_CONNECT);
       }
     }
-  }, [brokerUrl, options, client]);
+  }, [brokerUrl, options, client, status]);
 
   useEffect(() => {
     init();
