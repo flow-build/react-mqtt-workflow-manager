@@ -8,6 +8,7 @@ React MQTT Workflow Manager is a React component library designed to wrap all [M
  - [Installation](#installation)
  - [Dependencies](#dependencies)
  - [Usage](#usage)
+ - [Example of usage](#example-of-usage)
  - [Properties](#properties)
  - [WorkflowManagerConfig](#workflowmanagerconfig)
  - [Hooks](#hooks)
@@ -101,6 +102,10 @@ export const store = configureStore({
 });
 
 ```
+
+## [Example of usage](example-of-usage)
+
+See a complete example of usage [here](https://github.com/flow-build/react-mqtt-workflow-manager/tree/master/app/).
 
 ## [Properties](properties)
 
