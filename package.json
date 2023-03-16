@@ -47,7 +47,9 @@
     "fmt:check": "prettier --check src/**/*.{ts,tsx}",
     "prepare": "tsdx build && husky install",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "release": "semantic-release",
+    "git-version": "echo $npm_package_version"
   },
   "peerDependencies": {
     "react": ">=18",
@@ -66,6 +68,8 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.21.0",
+    "@semantic-release/changelog": "^6.0.2",
+    "@semantic-release/git": "^10.0.1",
     "@size-limit/esbuild-why": "^8.2.4",
     "@size-limit/preset-small-lib": "^8.2.4",
     "@testing-library/jest-dom": "^5.16.5",
@@ -77,6 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "babel-loader": "^9.1.2",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-import-resolver-typescript": "^3.5.3",
