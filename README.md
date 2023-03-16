@@ -1,7 +1,7 @@
 
 # React MQTT Workflow Manager
 
-React MQTT Workflow Manager is a React component library designed to wrap all [MQTT](https://mqtt.org/) sub logic behind the scenes. It deals only with events, no commands. The manager comunicates with your broker to dispatch actions in your front-end application. The library is focused to work with [Workflow API Layer](https://github.com/flow-build/workflow-api).
+React MQTT Workflow Manager is a React component library designed to wrap all the [MQTT](https://mqtt.org/) sub-logic behind the scenes and must be used to work with [Workflow API Layer](https://github.com/flow-build/workflow-api). It only deals with events, not commands. The manager communicates with your broker to dispatch actions in your front-end application.
 
 ## Table of contents
 
@@ -36,7 +36,7 @@ npm i react@18 react-dom@18
 ## [Usage](usage)
 
 
-1. Before the componente usage, set the store with `WorkflowManagerConfig.setStore`.
+1. Before using the component, set the store with `WorkflowManagerConfig.setStore`.
 
 ```tsx
 // App.tsx
@@ -85,7 +85,7 @@ export const App: React.FC = () => {
 };
 ```
 
-3. Lastly, set `workflowManagerReducer` to your store reducers.
+3. Lastly, set `workflowManagerReducer` on your store reducers.
 
 ```ts
 import { configureStore, createSlice } from '@reduxjs/toolkit';
@@ -105,34 +105,34 @@ export const store = configureStore({
 
 ## [Example of usage](example-of-usage)
 
-See a complete example of usage [here](https://github.com/flow-build/react-mqtt-workflow-manager/tree/master/app/).
+A complete example of how to use it can be found [here](https://github.com/flow-build/react-mqtt-workflow-manager/tree/master/app/).
 
 ## [Properties](properties)
 
 Property          | Type             | Required             | Description
 ---               | ---              | ---                  | ---
-`brokerUrl`       | *string*         | false                | URL to connect to broker. Use full URL like ws://
-`options`         | *IClientOptions* | false                | MQTT client options. See [MQTT.js](https://github.com/mqttjs/MQTT.js/blob/main/types/lib/client-options.d.ts).
+`brokerUrl`       | *string*         | true                 | URL to connect to broker. Use full URL like `wss://...`
+`options`         | *IClientOptions* | false                | MQTT client options. See options config [here](https://github.com/mqttjs/MQTT.js/blob/main/types/lib/client-options.d.ts).
 
 ## [WorkflowManagerConfig](workflowmanagerconfig)
 
-The library also exposes methods and utilities for your commodity. They can be used out of the context of react components.
+The library also provides methods and utilities for your commodity. They can be used outside the context of react components.
 
 ### setStore(store)
 
-The library use your redux store to dispatch actions. This is used to dispatch internal actions control and for your applications.
+The library uses your redux store to dispatch actions. This is used to control and dispatch internal actions for your application.
 
 ### getMqttClient()
 
-A utility method to be used out of context to react components. Be careful; the method must be able to return `null` if an error happens when setting connect. [See here](https://github.com/mqttjs/MQTT.js/blob/main/README.md#client).
+A utility method that can be used outside the context of react components. Be careful; the method must be able to return `null` if an error occurs when setting connect. See client config [here](https://github.com/mqttjs/MQTT.js/blob/main/README.md#client).
 
 ### subscribe(topic/topic array/topic object, [options])
 
-Works like exactly like [mqtt#subscribe](https://github.com/mqttjs/MQTT.js/blob/main/README.md#mqttclientsubscribetopictopic-arraytopic-object-options-callback), but the library implements validations and internal rules.
+Works exactly like [mqtt#subscribe](https://github.com/mqttjs/MQTT.js/blob/main/README.md#mqttclientsubscribetopictopic-arraytopic-object-options-callback), but the library implements validations and internal rules.
 
 ### subscribe(topic/topic array/topic object, [options])
 
-Works like exactly like [mqtt#unsubscribe](https://github.com/mqttjs/MQTT.js/blob/main/README.md#mqttclientunsubscribetopictopic-array-options-callback), but the library implements validations and internal rules.
+Works exactly like [mqtt#unsubscribe](https://github.com/mqttjs/MQTT.js/blob/main/README.md#mqttclientunsubscribetopictopic-array-options-callback), but the library implements validations and internal rules.
 
 ## [Hooks](hooks)
 
@@ -144,7 +144,7 @@ The hook returns a object contaning `client`, `status` and `error`.
 
 Property          | Type             | Default value    | Description
 ---               | ---              | ---              | ---
-`client`          | *MqttClient*     | `null`           | See type [here](https://github.com/mqttjs/MQTT.js/blob/main/types/lib/client.d.ts)
+`client`          | *MqttClient*     | `null`           | See client [here](https://github.com/mqttjs/MQTT.js/blob/main/types/lib/client.d.ts).
 `status`          | *string*         | `offline`        | `connecting`, `connected`, `disconnected`, `reconnecting`, `offline` or `error`.
 `error`           | *Error*          | `null` |
 
@@ -152,7 +152,7 @@ Property          | Type             | Default value    | Description
 
 Returns `WorkflowManagerConfig.subscribe` for your commodity.
 
-### UseUnsubscribe()
+### useUnsubscribe()
 
 Returns `WorkflowManagerConfig.unsubscribe` for your commodity.
 
