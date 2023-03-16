@@ -114,6 +114,11 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
     client?.on('message', this._onMessageArrived(topic));
   }
 
+  /**
+   * @description Unsubscribe to a topic or topics.
+   * @param {(string | string[])} topic
+   * @param {IClientUnsubscribeOptions} options
+   */
   public unsubscribe(
     topic: string | string[],
     options: IClientUnsubscribeOptions = {} as IClientUnsubscribeOptions,
