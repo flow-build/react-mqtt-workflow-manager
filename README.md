@@ -1,181 +1,211 @@
-# TSDX React w/ Storybook User Guide
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+# React MQTT Workflow Manager
 
-> This TSDX setup is meant for developing React component libraries (not apps!) that can be published to NPM. If you’re looking to build a React-based app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
+React MQTT Workflow Manager is a React component library designed to wrap all the [MQTT](https://mqtt.org/) sub-logic behind the scenes and must be used to work with [Workflow API Layer](https://github.com/flow-build/workflow-api). It only deals with events, not commands. The manager communicates with your broker to dispatch actions in your front-end application.
 
-> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
+## Table of contents
 
-## Commands
+ - [Installation](#installation)
+ - [Dependencies](#dependencies)
+ - [Usage](#usage)
+ - [Example of usage](#example-of-usage)
+ - [Properties](#properties)
+ - [WorkflowManagerConfig](#workflowmanagerconfig)
+ - [Hooks](#hooks)
+ - [Running locally](#running-locally)
+ - [Authors](#authors)
+ - [License](#license)
 
-TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
-
-The recommended workflow is to run TSDX in one terminal:
-
-```bash
-npm start # or yarn start
-```
-
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
-
-Then run either Storybook or the example playground:
-
-### Storybook
-
-Run inside another terminal:
+## [Installation](installation)
 
 ```bash
-yarn storybook
+npm install @flowbuild/react-mqtt-workflow-manager --save
 ```
-
-This loads the stories from `./stories`.
-
-> NOTE: Stories should reference the components as if using the library, similar to the example playground. This means importing from the root project directory. This has been aliased in the tsconfig and the storybook webpack config as a helper.
-
-### Example
-
-Then run the example inside another:
+or
 
 ```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
+yarn add @flowbuild/react-mqtt-workflow-manager
 ```
+## [Dependencies](dependencies)
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, we use [Parcel's aliasing](https://parceljs.org/module_resolution.html#aliases).
-
-To do a one-off build, use `npm run build` or `yarn build`.
-
-To run tests, use `npm test` or `yarn test`.
-
-## Configuration
-
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
-
-### Jest
-
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle analysis
-
-Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visulize it with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/example
-  index.html
-  index.tsx       # test your component here in a demo app
-  package.json
-  tsconfig.json
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-/stories
-  Thing.stories.tsx # EDIT THIS
-/.storybook
-  main.js
-  preview.js
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [size-limit](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
-```
-
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
-
-## Module Formats
-
-CJS, ESModules, and UMD module formats are supported.
-
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
-
-## Deploying the Example Playground
-
-The Playground is just a simple [Parcel](https://parceljs.org) app, you can deploy it anywhere you would normally deploy that. Here are some guidelines for **manually** deploying with the Netlify CLI (`npm i -g netlify-cli`):
+The `WorkflowManager` component [peer depends](https://docs.npmjs.com/files/package.json#peerdependencies) on the [React](https://www.npmjs.com/package/react) and [React DOM](https://www.npmjs.com/package/react-dom) in version 18.
 
 ```bash
-cd example # if not already in the example folder
-npm run build # builds to dist
-netlify deploy # deploy the dist folder
+npm i react@18 react-dom@18
+```
+## [Usage](usage)
+
+
+1. Before using the component, set the store with `WorkflowManagerConfig.setStore`.
+
+```tsx
+// App.tsx
+
+import * as React from 'react';
+
+import { WorkflowManagerConfig } from '@flowbuild/react-mqtt-workflow-manager';
+
+import { store } from './store'; // Your redux store
+
+
+WorkflowManagerConfig.setStore(store);
+
+// ...
 ```
 
-Alternatively, if you already have a git repo connected, you can set up continuous deployment with Netlify:
+2. Wrap your application with `WorkflowManager`.
+
+```tsx
+// App.tsx
+
+import * as React from 'react';
+
+import { Provider } from 'react-redux';
+import { WorkflowManager, WorkflowManagerConfig } from '@flowbuild/react-mqtt-workflow-manager';
+
+import { store } from './store'; // Your redux store
+
+
+WorkflowManagerConfig.setStore(store);
+
+export const App: React.FC = () => {
+  return (
+    <Provider store={store}>
+      <WorkflowManager
+        brokerUrl="ws://broker.mqttdashboard.com:8000/mqtt"
+        options={{
+          clientId: `clientId-${Math.random().toString(36).substring(2, 9)}`,
+          keepalive: 60,
+        }}
+      >
+        {/* Your child component here */}
+      </WorkflowManager>
+    </Provider>
+  );
+};
+```
+
+3. Lastly, set `workflowManagerReducer` on your store reducers.
+
+```ts
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+import { workflowManagerReducer, WorkflowManagerConfig } from '@flowbuild/react-mqtt-workflow-manager';
+
+const myAppSlice = createSlice({
+  name: '@myApp',
+  ...
+});
+
+export const store = configureStore({
+  reducer: { myApp: myAppSlice.reducer, workflowManagerReducer },
+});
+
+```
+
+## [Example of usage](example-of-usage)
+
+A complete example of how to use it can be found [here](https://github.com/flow-build/react-mqtt-workflow-manager/tree/master/app/).
+
+## [Properties](properties)
+
+Property          | Type             | Required             | Description
+---               | ---              | ---                  | ---
+`brokerUrl`       | *string*         | true                 | URL to connect to broker. Use full URL like `wss://...`
+`options`         | *IClientOptions* | false                | MQTT client options. See options config [here](https://github.com/mqttjs/MQTT.js/blob/main/types/lib/client-options.d.ts).
+
+## [WorkflowManagerConfig](workflowmanagerconfig)
+
+The library also provides methods and utilities for your commodity. They can be used outside the context of react components.
+
+### setStore(store)
+
+The library uses your redux store to dispatch actions. This is used to control and dispatch internal actions for your application.
+
+### getMqttClient()
+
+A utility method that can be used outside the context of react components. Be careful; the method must be able to return `null` if an error occurs when setting connect. See client config [here](https://github.com/mqttjs/MQTT.js/blob/main/README.md#client).
+
+### subscribe(topic/topic array/topic object, [options])
+
+Works exactly like [mqtt#subscribe](https://github.com/mqttjs/MQTT.js/blob/main/README.md#mqttclientsubscribetopictopic-arraytopic-object-options-callback), but the library implements validations and internal rules.
+
+### subscribe(topic/topic array/topic object, [options])
+
+Works exactly like [mqtt#unsubscribe](https://github.com/mqttjs/MQTT.js/blob/main/README.md#mqttclientunsubscribetopictopic-array-options-callback), but the library implements validations and internal rules.
+
+## [Hooks](hooks)
+
+Some hooks are exported for commodity.
+
+### useMqtt()
+
+The hook returns a object contaning `client`, `status` and `error`.
+
+Property          | Type             | Default value    | Description
+---               | ---              | ---              | ---
+`client`          | *MqttClient*     | `null`           | See client [here](https://github.com/mqttjs/MQTT.js/blob/main/types/lib/client.d.ts).
+`status`          | *string*         | `offline`        | `connecting`, `connected`, `disconnected`, `reconnecting`, `offline` or `error`.
+`error`           | *Error*          | `null` |
+
+### useSubscribe()
+
+Returns `WorkflowManagerConfig.subscribe` for your commodity.
+
+### useUnsubscribe()
+
+Returns `WorkflowManagerConfig.unsubscribe` for your commodity.
+
+## [Running locally](running-locally)
+
+Clone the project
 
 ```bash
-netlify init
-# build command: yarn build && cd example && yarn && yarn build
-# directory to deploy: example/dist
-# pick yes for netlify.toml
+git clone https://github.com/flow-build/react-mqtt-workflow-manager.git
 ```
 
-## Named Exports
+Go to the project directory
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
-
-## Including Styles
-
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
-
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
-
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
-
-## Usage with Lerna
-
-When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
-
-The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
-
-Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
-
-```diff
-   "alias": {
--    "react": "../node_modules/react",
--    "react-dom": "../node_modules/react-dom"
-+    "react": "../../../node_modules/react",
-+    "react-dom": "../../../node_modules/react-dom"
-   },
+```bash
+cd react-mqtt-workflow-manager
 ```
 
-An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)
+Install dependencies
+
+```bash
+npm install
+```
+
+Start the development server
+
+```bash
+npm run dev
+```
+
+Go to the project example directory
+
+```bash
+cd app
+```
+
+Install de example dependencies
+
+```bash
+npm install
+```
+
+Start the example application
+
+```bash
+npm run start
+```
+
+
+## [Authors](authors)
+
+[@wallace-sf](https://www.github.com/wallace-sf)
+
+
+## [License](license)
+
+[MIT](https://choosealicense.com/licenses/mit/)
