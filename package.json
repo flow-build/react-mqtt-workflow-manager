@@ -1,6 +1,6 @@
 {
   "name": "@flowbuild/react-mqtt-workflow-manager",
-  "version": "0.1.0",
+  "version": "1.0.0-alpha.1",
   "license": "MIT",
   "description": "A react wrapper manager for MQTT",
   "repository": "https://github.com/flow-build/react-mqtt-workflow-manager",
