@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { MqttClient, connect } from 'mqtt-browser';
 import invariant from 'tiny-warning';
@@ -13,22 +20,25 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
   options,
   children,
 }) => {
+  const connectionOpen = useRef(false);
+
   const [client, setClient] = useState<MqttClient | null>(null);
   const [status, setStatus] = useState<IMqttContext['status']>('offline');
   const [error, setError] = useState<IMqttContext['error']>(null);
 
   const init = useCallback(() => {
-    if (!client) {
+    if (!client && !connectionOpen.current) {
+      connectionOpen.current = true;
+
       try {
         const mqttInstance = connect(brokerUrl, options);
 
         mqttInstance.on('connect', () => {
           if (status !== 'connected') setStatus('connected');
-          setStatus('connected');
         });
 
         mqttInstance.on('end', () => {
-          setStatus('offline');
+          if (status !== 'offline') setStatus('offline');
         });
 
         mqttInstance.on('offline', () => {
@@ -37,12 +47,12 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
 
         mqttInstance.on('error', () => {
           if (status !== 'error') setStatus('error');
+          setError(new Error(ERROR_MESSAGES.ERROR_OCURRED));
           invariant(false, ERROR_MESSAGES.ERROR_OCURRED);
         });
 
         mqttInstance.on('reconnect', () => {
           if (status !== 'reconnecting') setStatus('reconnecting');
-          setStatus('reconnecting');
         });
 
         setClient(mqttInstance);
@@ -58,6 +68,17 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
   useEffect(() => {
     init();
   }, [init]);
+
+  useEffect(() => {
+    return () => {
+      if (client) {
+        client.end();
+        setClient(null);
+
+        connectionOpen.current = false;
+      }
+    };
+  }, [client]);
 
   const providerValue = useMemo(() => {
     return { client, status, error };
