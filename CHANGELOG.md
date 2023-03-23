@@ -1,3 +1,10 @@
+## [1.0.0-alpha.2](https://github.com/flow-build/react-mqtt-workflow-manager/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2023-03-23)
+
+
+### Bug Fixes
+
+* looping on mqtt connect ([10bfdac](https://github.com/flow-build/react-mqtt-workflow-manager/commit/10bfdac39bedff6027b4d28f0fb09273a7ea1925))
+
 ## 1.0.0-alpha.1 (2023-03-17)
 
 
