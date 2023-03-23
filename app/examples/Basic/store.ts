@@ -1,15 +1,6 @@
-import { configureStore, createSlice, Middleware } from '@reduxjs/toolkit';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-import { workflowManagerReducer, WorkflowManagerConfig } from '../../../dist';
-import { processTopic, actorTopic } from './constants';
-
-const middleware: Middleware = () => (next) => (action) => {
-  next(action);
-
-  if (action.type === '@@workflowManager/external/TEST_WORKFLOW') {
-    WorkflowManagerConfig.unsubscribe([processTopic, actorTopic]);
-  }
-};
+import { workflowManagerReducer } from '../../../dist';
 
 const basicSlice = createSlice({
   name: '@basic',
@@ -20,5 +11,4 @@ const basicSlice = createSlice({
 export const store = configureStore({
   reducer: { workflowManagerReducer, basic: basicSlice.reducer },
   devTools: process.env.NODE_ENV !== 'production',
-  middleware: [middleware],
 });
