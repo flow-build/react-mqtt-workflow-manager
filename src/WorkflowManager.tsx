@@ -37,24 +37,6 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
           if (status !== 'connected') setStatus('connected');
         });
 
-        mqttInstance.on('end', () => {
-          if (status !== 'offline') setStatus('offline');
-        });
-
-        mqttInstance.on('offline', () => {
-          if (status !== 'offline') setStatus('offline');
-        });
-
-        mqttInstance.on('error', () => {
-          if (status !== 'error') setStatus('error');
-          setError(new Error(ERROR_MESSAGES.ERROR_OCURRED));
-          invariant(false, ERROR_MESSAGES.ERROR_OCURRED);
-        });
-
-        mqttInstance.on('reconnect', () => {
-          if (status !== 'reconnecting') setStatus('reconnecting');
-        });
-
         setClient(mqttInstance);
         WorkflowManagerConfig.setMqttClient(mqttInstance);
       } catch (error) {
@@ -65,9 +47,35 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
     }
   }, [brokerUrl, options, client, status]);
 
+  const onConnected = useCallback(() => {
+    if (client && status !== 'connected' && !connectionOpen.current) {
+      client.on('end', () => {
+        if (status !== 'offline') setStatus('offline');
+      });
+
+      client.on('offline', () => {
+        if (status !== 'offline') setStatus('offline');
+      });
+
+      client.on('error', () => {
+        if (status !== 'error') setStatus('error');
+        setError(new Error(ERROR_MESSAGES.ERROR_OCURRED));
+        invariant(false, ERROR_MESSAGES.ERROR_OCURRED);
+      });
+
+      client.on('reconnect', () => {
+        if (status !== 'reconnecting') setStatus('reconnecting');
+      });
+    }
+  }, [client, status]);
+
   useEffect(() => {
     init();
   }, [init]);
+
+  useEffect(() => {
+    onConnected();
+  }, [onConnected]);
 
   useEffect(() => {
     return () => {
