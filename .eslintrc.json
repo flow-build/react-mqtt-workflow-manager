@@ -10,7 +10,8 @@
     "plugin:import/typescript",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:sonarjs/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -26,7 +27,8 @@
     "prettier",
     "eslint-plugin-import-helpers",
     "import",
-    "react-hooks"
+    "react-hooks",
+    "sonarjs"
   ],
   "rules": {
     "prettier/prettier": "error",
