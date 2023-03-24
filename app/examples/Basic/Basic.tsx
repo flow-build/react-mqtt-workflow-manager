@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { WorkflowManager, WorkflowManagerConfig } from '../../../dist';
 import { Child } from './Child';
 import { store } from './store';
+import { createClientId } from './utils';
 
 WorkflowManagerConfig.setStore(store);
 
@@ -13,7 +14,7 @@ export const Basic: React.FC = () => {
       <WorkflowManager
         brokerUrl="ws://broker.mqttdashboard.com:8000/mqtt"
         options={{
-          clientId: `clientId-${Math.random().toString(36).substring(2, 9)}`,
+          clientId: createClientId(),
           keepalive: 60,
         }}
       >

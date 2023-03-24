@@ -95,7 +95,7 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
     const client = this.getMqttClient();
     const store = WorkflowManagerConfig._store;
 
-    const shouldSubscribe = shouldSubscribeOrUnsubscribe(topic, store, client);
+    const shouldSubscribe = shouldSubscribeOrUnsubscribe(store, client);
 
     if (!shouldSubscribe) return;
 
@@ -126,7 +126,7 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
     const client = this.getMqttClient();
     const store = WorkflowManagerConfig._store;
 
-    const unsubscribe = shouldSubscribeOrUnsubscribe(topic, store, client);
+    const unsubscribe = shouldSubscribeOrUnsubscribe(store, client);
 
     if (!unsubscribe) return;
 

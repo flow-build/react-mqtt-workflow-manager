@@ -1,6 +1,3 @@
-export const VALID_TOPIC_PATTERN =
-  /^(([\\+#]{1}|[^\\+#]*)\/)?(([\\+#]{1}|[^\\+#]*)\/{1})*(([\\+#]{1}|[^\\+#]*))$/;
-
 export const ERROR_MESSAGES = {
   NO_WRAPPER:
     'No context found. Did you forget to wrap your app with WorkflowManager component?',
