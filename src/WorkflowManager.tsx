@@ -20,15 +20,16 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
   options,
   children,
 }) => {
-  const connectionOpen = useRef(false);
+  const initStarted = useRef(false);
+  const eventsStarted = useRef(false);
 
   const [client, setClient] = useState<MqttClient | null>(null);
   const [status, setStatus] = useState<IMqttContext['status']>('offline');
   const [error, setError] = useState<IMqttContext['error']>(null);
 
   const init = useCallback(() => {
-    if (!client && !connectionOpen.current) {
-      connectionOpen.current = true;
+    if (!client && !initStarted.current) {
+      initStarted.current = true;
 
       try {
         const mqttInstance = connect(brokerUrl, options);
@@ -47,8 +48,10 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
     }
   }, [brokerUrl, options, client, status]);
 
-  const onConnected = useCallback(() => {
-    if (client && status !== 'connected' && !connectionOpen.current) {
+  const onClientDefined = useCallback(() => {
+    if (client && !eventsStarted.current) {
+      eventsStarted.current = true;
+
       client.on('end', () => {
         if (status !== 'offline') setStatus('offline');
       });
@@ -74,8 +77,8 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
   }, [init]);
 
   useEffect(() => {
-    onConnected();
-  }, [onConnected]);
+    onClientDefined();
+  }, [onClientDefined]);
 
   useEffect(() => {
     return () => {
@@ -83,7 +86,8 @@ export const WorkflowManager: FC<WorkflowManagerProps> = ({
         client.end();
         setClient(null);
 
-        connectionOpen.current = false;
+        initStarted.current = false;
+        eventsStarted.current = false;
       }
     };
   }, [client]);
