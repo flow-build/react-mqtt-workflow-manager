@@ -1,5 +1,3 @@
-import { PropsWithChildren } from 'react';
-
 import { Store } from '@reduxjs/toolkit';
 import {
   IClientOptions,
@@ -13,9 +11,10 @@ export type IClientUnsubscribeOptions = Parameters<
   MqttClient['unsubscribe']
 >[1];
 
-export interface WorkflowManagerProps extends PropsWithChildren {
-  brokerUrl?: string;
+export interface WorkflowManagerProps {
+  brokerUrl: string;
   options?: IClientOptions;
+  children: React.ReactNode;
 }
 
 export interface WorkflowManagerConfigProps {
