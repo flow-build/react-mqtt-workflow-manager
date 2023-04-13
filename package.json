@@ -9,6 +9,12 @@
     "name": "Wallace Ferreira",
     "url": "https://github.com/wallace-sf"
   },
+  "contributors": [
+    {
+      "name": "Leonardo Abe",
+      "url": "https://github.com/leonardoabe"
+    }
+  ],
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "keywords": [
