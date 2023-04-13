@@ -3,16 +3,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WorkflowManagerState } from './types';
 
 const Types = {
-  addProcess: 'internal/ADD_PROCESS',
-  removeProcess: 'internal/REMOVE_PROCESS',
+  addProcess: 'ADD_PROCESS',
+  removeProcess: 'REMOVE_PROCESS',
 };
 
 const initialState: WorkflowManagerState = {
   activeProcesses: [],
 };
 
-export const workflowManagerSlice = createSlice({
-  name: '@@workflowManager',
+export const workflowManagerInternalSlice = createSlice({
+  name: '@@workflowManagerInternal',
   initialState,
   reducers: {
     [Types.addProcess]: (state, action: PayloadAction<string>) => {
@@ -26,8 +26,9 @@ export const workflowManagerSlice = createSlice({
   },
 });
 
-export const prefix = workflowManagerSlice.name;
-export const addProcess = workflowManagerSlice.actions[Types.addProcess];
-export const removeProcess = workflowManagerSlice.actions[Types.removeProcess];
+export const addProcess =
+  workflowManagerInternalSlice.actions[Types.addProcess];
+export const removeProcess =
+  workflowManagerInternalSlice.actions[Types.removeProcess];
 
-export default workflowManagerSlice.reducer;
+export default workflowManagerInternalSlice.reducer;

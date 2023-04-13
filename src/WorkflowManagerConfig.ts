@@ -4,7 +4,10 @@ import { matches, exec } from 'mqtt-pattern';
 import invariant from 'tiny-warning';
 
 import { createWorkflowAction } from './ducks/utils';
-import { addProcess, removeProcess } from './ducks/workflowManager.slice';
+import {
+  addProcess,
+  removeProcess,
+} from './ducks/workflowManagerInternal.slice';
 import { WorkflowManagerConfigProps, IClientUnsubscribeOptions } from './types';
 import {
   ERROR_MESSAGES,
