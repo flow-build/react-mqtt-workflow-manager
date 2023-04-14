@@ -48,11 +48,13 @@ class WorkflowManagerConfig implements WorkflowManagerConfigProps {
       if (isMatched) {
         const store = WorkflowManagerConfig._store;
         const dispatch = store?.dispatch as Store['dispatch'];
-        const payload = JSON.parse(message.toString());
-        const action = payload?.props?.action || '';
-        const result = payload?.props?.result || {};
+        const parsedMessage = JSON.parse(message.toString());
+        const process_id = parsedMessage?.process_id || '';
+        const action = parsedMessage?.props?.action || '';
+        const result = parsedMessage?.props?.result || {};
+        const payload = { process_id, result };
 
-        dispatch(createWorkflowAction(action, result));
+        dispatch(createWorkflowAction(action, payload));
       }
     };
   }

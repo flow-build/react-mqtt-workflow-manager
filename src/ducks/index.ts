@@ -1,2 +1,2 @@
 export { default as workflowManagerInternalReducer } from './workflowManagerInternal.slice';
-export const prefix = '@@workflowManagerExternal';
+export const WORFLOW_MANAGER_EXTERNAL_PREFFIX = '@@workflowManagerExternal';

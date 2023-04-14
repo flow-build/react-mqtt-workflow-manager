@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-import { workflowManagerReducer } from '../../../dist';
+import { workflowManagerInternalReducer } from '../../../dist';
 
 const basicSlice = createSlice({
   name: '@basic',
@@ -9,6 +9,6 @@ const basicSlice = createSlice({
 });
 
 export const store = configureStore({
-  reducer: { workflowManagerReducer, basic: basicSlice.reducer },
+  reducer: { workflowManagerInternalReducer, basic: basicSlice.reducer },
   devTools: process.env.NODE_ENV !== 'production',
 });

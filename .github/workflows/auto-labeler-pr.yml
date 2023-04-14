@@ -2,7 +2,7 @@ name: Labeler
 on:
   - pull_request_target
 jobs:
-  pattern-labaler:
+  pattern-labeler:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/labeler@v2
@@ -10,9 +10,9 @@ jobs:
           configuration-path: .github/label-settings/labeler.yml
           repo-token: ${{ secrets.GH_TOKEN }}
   branch-name-labeler:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: TimonVS/pr-labeler-action@v3
+      - uses: TimonVS/pr-labeler-action@v4
         with:
           configuration-path: .github/label-settings/name-pattern-labeler.yml
         env:

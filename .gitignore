@@ -6,5 +6,5 @@ dist
 esbuild-why*.html
 .env
 .npmrc
-yarn.lock
+**/yarn.lock
 
