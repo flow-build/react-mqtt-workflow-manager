@@ -1,3 +1,10 @@
+## [1.0.1-alpha.1](https://github.com/flow-build/react-mqtt-workflow-manager/compare/v1.0.0...v1.0.1-alpha.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* workflow manager reducer name ([58c8631](https://github.com/flow-build/react-mqtt-workflow-manager/commit/58c86319ab3cec5817da958367c1c586975b6b92))
+
 ## 1.0.0 (2023-03-27)
 
 
